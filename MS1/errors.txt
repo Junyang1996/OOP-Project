@@ -1,0 +1,6 @@
+ms1_prof.cpp:18:6: error: #error "The header guard for 'Station.h' doesn't follow the convention!"
+   18 |     #error "The header guard for 'Station.h' doesn't follow the convention!"
+      |      ^~~~~
+ms1_prof.cpp:21:6: error: #error "The header guard for 'Utilities.h' doesn't follow the convention!"
+   21 |     #error "The header guard for 'Utilities.h' doesn't follow the convention!"
+      |      ^~~~~
