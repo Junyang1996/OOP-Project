@@ -62,8 +62,7 @@ namespace seneca
 
         next_pos = end + 1;
 
-        if (token.length() > m_widthField)
-            m_widthField = token.length();
+        m_widthField = std::max(m_widthField, trim(token).length());
 
         return trim(token);
     }

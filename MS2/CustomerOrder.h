@@ -1,6 +1,8 @@
-#ifndef CUSTOMERORDER_H
-#define CUSTOMERORDER_H
+#ifndef SENECA_CUSTOMERORDER_H
+#define SENECA_CUSTOMERORDER_H
 #include <string>
+#include "Station.h"
+
 namespace seneca
 {
 
@@ -25,20 +27,36 @@ namespace seneca
         Item **m_lstItem{};
 
     public:
+        // default constructor
         CustomerOrder();
-        CustomerOrder(std::string &);
+        // a custom 1-argument constructor that takes a reference to an unmodifiable string.
+        CustomerOrder(const std::string &);
+        // object should not allow copy
         CustomerOrder(const CustomerOrder &other)
         {
             throw std::invalid_argument("No copy constructor");
         }
+        // copy operator= should be deleted.
         CustomerOrder &operator=(const CustomerOrder &) = delete;
+
+        // This constructor should "promise" that it doesn't throw exceptions. Use the noexcept keyword in the declaration and the definition.
         CustomerOrder(CustomerOrder &&) noexcept;
+
+        // a move assignment operator. This operator should "promise" that it doesn't throw exceptions. Use the noexcept keyword in the declaration and the definition.
         CustomerOrder &operator=(CustomerOrder &&) noexcept;
         ~CustomerOrder();
+
+        // bool isOrderFilled() const – returns true if all the items in the order have been filled; false otherwise
         bool isOrderFilled() const;
+
+        // bool isItemFilled(const std::string& itemName) const – returns true if all items specified by itemName have been filled. If the item doesn't exist in the order, this query returns true.
         bool isItemFilled(const std::string &itemName) const;
+
+        // this modifier fills one item in the current order that the Station specified in the first parameter handles.
         void fillItem(Station &station, std::ostream &os);
+
+        // void display(std::ostream& os) const – this query displays the state of the current object in the format (see the sample output for details)
         void display(std::ostream &os) const;
     };
 }
-#endif //! CUSTOMERORDER_H
+#endif //! SENECA_CUSTOMERORDER_H

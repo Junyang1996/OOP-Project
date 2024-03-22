@@ -1,0 +1,8 @@
+{
+  "files.associations": {
+    "*.py": "python",
+    "new": "cpp",
+    "ostream": "cpp",
+    "string": "cpp"
+  }
+}

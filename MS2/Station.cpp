@@ -24,8 +24,9 @@ namespace seneca
         itemName = utilities.extractToken(str, pos, more);
         m_serialNumber = stoul(utilities.extractToken(str, pos, more));
         quantity = stoul(utilities.extractToken(str, pos, more));
-        m_widthField = utilities.getFieldWidth();
+        m_widthField = std::max(utilities.getFieldWidth(),m_widthField);
         description = utilities.extractToken(str, pos, more);
+        
 
         id = ++id_generator;
         // }
@@ -45,11 +46,11 @@ namespace seneca
     {
         if (!full)
         {
-            os << setw(3) << setfill('0') << right << id << " | " << setfill(' ') << left << setw(m_widthField) << getItemName() << "| " << setw(6) << setfill('0') << right << m_serialNumber << " | " << endl;
+            os << setw(3) << setfill('0') << right << id << " | " << setfill(' ') << left << setw(Station::m_widthField) << getItemName() << " | " << setw(6) << setfill('0') << right << m_serialNumber << " | " << endl;
         }
         else
         {
-            os << setw(3) << setfill('0') << right << id << " | " << setfill(' ') << left << setw(m_widthField) << getItemName() << "| " << setw(6) << setfill('0') << right << m_serialNumber << " | " << setw(4) << setfill(' ') << getQuantity() << " | " << description << endl;
+            os << setw(3) << setfill('0') << right << id << " | " << setfill(' ') << left << setw(m_widthField) << getItemName() << " | " << setw(6) << setfill('0') << right << m_serialNumber << " | " << setw(4) << setfill(' ') << getQuantity() << " | " << description << endl;
         }
     }
 }
