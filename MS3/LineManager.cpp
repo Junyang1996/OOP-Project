@@ -83,18 +83,33 @@ namespace seneca
     }
     bool LineManager::run(std::ostream &os)
     {
-        *m_firstStation += std::move(g_pending.front());
-        auto i = 0u;
-        while (m_activeLine[i]->attemptToMoveOrder())
+        static size_t iterator{};
+        iterator++;
 
+        os << "Line Manager Iteration: " << iterator << std::endl;
+        // moves the order at the front of the g_pending queue to the m_firstStation and remove it from the queue.
+        if (!g_pending.empty())
         {
-            os << "Line Manager Iteration: " << i + 1 << std::endl;
-
-            m_activeLine[i]->fill(os);
-            m_activeLine[i]->attemptToMoveOrder();
+            *m_firstStation += std::move(g_pending.front());
+            g_pending.pop_front();
         }
+        // for each station on the line, executes one fill operation
+        for (auto *station : m_activeLine)
+        {
+            station->fill(os);
+        }
+        bool allMoved = true;
+        for (auto *station : m_activeLine)
+        {
+            // if an order has not been moved that means there's an order not been filled
+            bool moved = station->attemptToMoveOrder();
+            allMoved = allMoved && moved;
+        }
+        bool answer = g_pending.empty() && allMoved;
 
-        return true;
+        // this should stop while thereis no pening and all the other customer order is either in complete or incomplete
+        // so check all of the station if all the order has been filled.
+        return answer;
     }
     void LineManager::display(std::ostream &os) const
     {
