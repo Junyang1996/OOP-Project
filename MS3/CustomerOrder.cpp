@@ -1,3 +1,10 @@
+// Name: Lawrence Wan
+// Seneca Student ID: 105442230
+// Seneca email:jwan27@myseneca.ca
+// Date of completion: April 4 , 2024
+//
+// I confirm that I am the only author of this file
+//   and the content was created entirely by me.
 #include <string>
 #include <utility>
 #include <algorithm>
@@ -96,7 +103,7 @@ namespace seneca
         for (auto i = 0u; i < m_cntItem; i++)
         {
 
-            // if it's not found, return true, if not not filled, return true
+            // false only when the item is matching but it is not filled
             if (m_lstItem[i]->m_itemName == itemName && !m_lstItem[i]->m_isFilled)
                 return false;
         }
@@ -108,20 +115,20 @@ namespace seneca
         for (auto i = 0u; i < m_cntItem; i++)
         {
             // if the order contains items handled, and the Station's inventory contains at least one item, this function fills the order with one single item.
-
-            if (m_lstItem[i]->m_itemName == station.getItemName() && station.getQuantity() > 0)
+            if (m_lstItem[i]->m_itemName == station.getItemName() && !m_lstItem[i]->m_isFilled)
             {
-                // It subtracts 1 from the inventory and updates Item::m_serialNumber and Item::m_isFilled. It also prints the message Filled NAME, PRODUCT [ITEM_NAME].
-                station.updateQuantity();
-                m_lstItem[i]->m_serialNumber = station.getNextSerialNumber();
-                m_lstItem[i]->m_isFilled = true;
-                os << "    Filled " << m_name << ", " << m_product << " [" << m_lstItem[i]->m_itemName << "]\n";
-                // only fill one item, once it found the right one, exist.
-                i = m_cntItem;
+                if (station.getQuantity() > 0)
+                {
+                    station.updateQuantity();
+                    m_lstItem[i]->m_serialNumber = station.getNextSerialNumber();
+                    m_lstItem[i]->m_isFilled = true;
+                    os << "    Filled " << m_name << ", " << m_product << " [" << m_lstItem[i]->m_itemName << "]\n";
+                    // only fill one item, once it found the right one, exist.
+                    i = m_cntItem;
+                }
+                else if (station.getQuantity() == 0)
+                    os << "Unable to filled " << m_name << ", " << m_product << " [" << m_lstItem[i]->m_itemName << "]\n";
             }
-            // if the order contains items handled but unfilled, and the inventory is empty,
-            else if (m_lstItem[i]->m_itemName == station.getItemName() && station.getQuantity() == 0)
-                os << "Unable to filled " << m_name << ", " << m_product << " [" << m_lstItem[i]->m_itemName << "]\n";
         }
     }
     void CustomerOrder::display(std::ostream &os) const
@@ -130,7 +137,7 @@ namespace seneca
         for (auto i = 0u; i < m_cntItem; ++i)
         {
             os << '[' << setw(6) << setfill('0') << m_lstItem[i]->m_serialNumber << "] " << setw(m_widthField) << setfill(' ') << left << m_lstItem[i]->m_itemName << " - ";
-            if (!isOrderFilled())
+            if (!m_lstItem[i]->m_isFilled)
             {
                 os << "TO BE FILLED\n";
             }

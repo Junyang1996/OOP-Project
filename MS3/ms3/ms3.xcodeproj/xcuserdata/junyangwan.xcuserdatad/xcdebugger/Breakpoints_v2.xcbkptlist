@@ -71,22 +71,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "721FBAD6-B05E-4E88-9793-9FFFA15FF7E5"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../LineManager.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
-            landmarkName = "LineManager::run(os)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "09EF04B4-FE74-4782-AA06-348B01EE63A7"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -114,6 +98,68 @@
             endingLineNumber = "23"
             landmarkName = "Workstation::attemptToMoveOrder()"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2F92A78D-F860-421A-A686-1575501A787C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Workstation.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "Workstation::attemptToMoveOrder()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "05546106-43C1-42C4-AC92-C1005A521D99"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../LineManager.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "LineManager::run(os)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "05546106-43C1-42C4-AC92-C1005A521D99 - c174abb4b883b78c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "seneca::LineManager::run(std::__1::basic_ostream&lt;char, std::__1::char_traits&lt;char&gt;&gt;&amp;)"
+                  moduleName = "ms3"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/junyangwan/Documents/Seneca/OOP-Project/MS3/LineManager.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "105"
+                  endingLineNumber = "105">
+               </Location>
+               <Location
+                  uuid = "05546106-43C1-42C4-AC92-C1005A521D99 - c174abb4b883b78c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "seneca::LineManager::run(std::__1::basic_ostream&lt;char, std::__1::char_traits&lt;char&gt;&gt;&amp;)"
+                  moduleName = "ms3"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/junyangwan/Documents/Seneca/OOP-Project/MS3/LineManager.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "105"
+                  endingLineNumber = "105">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

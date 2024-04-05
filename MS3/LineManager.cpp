@@ -1,3 +1,10 @@
+// Name: Lawrence Wan
+// Seneca Student ID: 105442230
+// Seneca email:jwan27@myseneca.ca
+// Date of completion: April 4 , 2024
+//
+// I confirm that I am the only author of this file
+//   and the content was created entirely by me.
 #include <fstream>
 #include <iostream>
 #include <algorithm>
@@ -83,34 +90,38 @@ namespace seneca
     }
     bool LineManager::run(std::ostream &os)
     {
-        static size_t iterator{};
-        iterator++;
+        static size_t iteration = 0;
+        ++iteration;
 
-        os << "Line Manager Iteration: " << iterator << std::endl;
-        // moves the order at the front of the g_pending queue to the m_firstStation and remove it from the queue.
+        os << "Line Manager Iteration: " << iteration << std::endl;
+
+        // Move the order at the front of the g_pending queue to the m_firstStation
+        // and remove it from the queue. This function moves only one order to the line on a single iteration.
         if (!g_pending.empty())
         {
             *m_firstStation += std::move(g_pending.front());
             g_pending.pop_front();
         }
-        // for each station on the line, executes one fill operation
-        for (auto *station : m_activeLine)
-        {
-            station->fill(os);
-        }
-        bool allMoved = true;
-        for (auto *station : m_activeLine)
-        {
-            // if an order has not been moved that means there's an order not been filled
-            bool moved = station->attemptToMoveOrder();
-            allMoved = allMoved && moved;
-        }
-        bool answer = g_pending.empty() && allMoved;
 
-        // this should stop while thereis no pening and all the other customer order is either in complete or incomplete
-        // so check all of the station if all the order has been filled.
-        return answer;
+        // For each station on the line, executes one fill operation
+        for (auto *station : m_activeLine)
+            station->fill(os);
+
+        // For each station on the line, attempts to move an order down the line
+        // bool allOrdersFilledOrIncomplete = true;
+        for (auto *station : m_activeLine)
+        {
+            // If an order has not been moved, it means there's an order not been filled
+            station->attemptToMoveOrder();
+            // allOrdersFilledOrIncomplete = false;
+        }
+
+        // Return true if all customer orders have been filled or cannot be filled, otherwise returns false.
+        // when nothing is moving any more it means it's all fullfilled?
+        // return g_pending.empty() && (m_cntCustomerOrder = (g_completed.size() + g_incomplete.size()));
+        return (m_cntCustomerOrder == (g_completed.size() + g_incomplete.size()));
     }
+
     void LineManager::display(std::ostream &os) const
     {
         std::for_each(m_activeLine.begin(), m_activeLine.end(), [&](Workstation *ws)

@@ -1,3 +1,10 @@
+// Name: Lawrence Wan
+// Seneca Student ID: 105442230
+// Seneca email:jwan27@myseneca.ca
+// Date of completion: April 4 , 2024
+//
+// I confirm that I am the only author of this file
+//   and the content was created entirely by me.
 #include <iostream>
 #include "Workstation.h"
 namespace seneca
@@ -12,62 +19,99 @@ namespace seneca
     }
     bool Workstation::attemptToMoveOrder()
     {
-        bool answer = false;
-
         if (m_order.empty())
         {
-            return answer;
+            return false;
         }
-        if (!m_order.front().isItemFilled(getItemName()) && getQuantity() == 0)
+        // if the order is not been found in this station, or the station has no quantity to fill the item
+        else if (m_order.front().isItemFilled(getItemName()) || getQuantity() == 0)
         {
-            g_incomplete.push_back(std::move(m_order.front()));
-            answer = true;
-        }
-        // if the item is not suppose to handle here or here cannot handle this
-        // if the way to verify if the station item is the same as the first order's order
-        if (m_order.front().isItemFilled(getItemName()))
-        {
-            if (m_pNextStation != nullptr)
+            // if there's a next station
+            if (getNextStation() != nullptr)
             {
                 *m_pNextStation += std::move(m_order.front());
-                //  I think the better design would be this only return true the order is finished
-                answer = true;
-                // m_order.pop_front();
+                m_order.pop_front();
+                return true;
             }
-            else if (m_order.front().isOrderFilled())
+            else
             {
-                g_completed.push_back(std::move(m_order.front()));
-                answer = true;
+
+                if (!m_order.front().isOrderFilled())
+                {
+
+                    g_incomplete.push_back(std::move(m_order.front()));
+                    m_order.pop_front();
+                    return true;
+                }
+                else
+                {
+                    g_completed.push_back(std::move(m_order.front()));
+                    m_order.pop_front();
+                    return true;
+                }
             }
         }
-        // if there's next station
-        // if there's no next station
-
-        // if there's a next station and the order is not filled and the order which the station provide is not filled move to the next station
-        // if (m_pNextStation != nullptr && !m_order.front().isOrderFilled() && m_order.front().isItemFilled(getItemName()))
-        // {
-        //     *m_pNextStation += std::move(m_order.front());
-        //     answer = true;
-        // }
-        // // not sufficient amount of item but there's next station
-        // else if (getQuantity() == 0 || m_pNextStation == nullptr)
-        // {
-        //     g_incomplete.push_back(std::move(m_order.front()));
-        //     answer = true;
-        // }
-        // else if (m_order.front().isOrderFilled())
-        // {
-        //     g_completed.push_back(std::move(m_order.front()));
-        //     answer = true;
-        // }
-
-        if (answer)
-        {
-            m_order.pop_front();
-        }
-
-        return answer;
+        return false;
     }
+    // {
+
+    //     g_incomplete.push_back(std::move(m_order.front()));
+    //     m_order.pop_front();
+    //     return true;
+    // }
+    // if (m_pNextStation != nullptr && (getQuantity() == 0 || m_order.front().isItemFilled(getItemName())))
+    // {
+
+    //     *m_pNextStation += std::move(m_order.front());
+    //     m_order.pop_front();
+    //     return true;
+    // }
+    // else if (m_pNextStation == nullptr)
+    // {
+    //     if (m_order.front().isItemFilled(getItemName()))
+    //     {
+    //         g_completed.push_back(std::move(m_order.front()));
+    //         m_order.pop_front();
+    //         return true;
+    //     }
+    // }
+    // return false;
+    // if (!m_order.front().isItemFilled(getItemName()))
+    // {
+    //     if (getQuantity() == 0)
+    //     {
+    //         if (m_pNextStation != nullptr)
+    //         {
+    //             *m_pNextStation += std::move(m_order.front());
+    //             m_order.pop_front();
+    //             return true;
+    //         }
+    //         else
+    //         {
+    //             g_incomplete.push_back(std::move(m_order.front()));
+    //             m_order.pop_front();
+    //             return true;
+    //         }
+    //     }
+    // }
+    // else
+    // {
+    //     if (m_pNextStation != nullptr)
+    //     {
+    //         *m_pNextStation += std::move(m_order.front());
+    //         m_order.pop_front();
+    //         return true;
+    //     }
+    //     else
+    //     {
+    //         g_completed.push_back(std::move(m_order.front()));
+    //         m_order.pop_front();
+    //         return true;
+    //     }
+    // }
+
+    // return false;
+
     void Workstation::display(std::ostream &os) const
     {
         os << getItemName() << " --> ";
